@@ -17,4 +17,13 @@ class PostController extends Controller
 
         ]);
     }
+
+    public function destroy(Post $post)
+    {
+        // Elimina la publicación de la base de datos
+        $post->delete();
+
+        // Redirige de nuevo a la página anterior
+        return back();
+    }
 }
