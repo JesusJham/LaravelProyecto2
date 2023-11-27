@@ -50,6 +50,21 @@ class PostController extends Controller
         return view('posts.edit', compact('post'));
     }
 
+    //Este método maneja la solicitud para actualizar una publicación.
+    public function update(Request $request, Post $post)
+    {
+        /*Recibe dos parámetros: $request, que es un objeto de la clase Request que contiene los datos del formulario enviado, 
+        y $post, que es una instancia del modelo Post que se actualizará.*/
+        // Actualiza los atributos de la publicación con los datos del formulario
+        $post->update([
+            'title' => $title = $request->title,
+            'slug' => Str::slug($title),
+            'body' => $request->body,
+        ]);
+
+        // Redirige a la página de edición de la publicación actualizada
+        return redirect()->route('posts.edit', $post);
+    }
 
 
     public function destroy(Post $post)

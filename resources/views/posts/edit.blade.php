@@ -14,7 +14,6 @@
                     	@method('PUT')
                         <!-- Incluye el contenido de la vista parcial "_form" -->    
                     	@include('posts._form')
-
                     </form>
                 </div>
             </div>
