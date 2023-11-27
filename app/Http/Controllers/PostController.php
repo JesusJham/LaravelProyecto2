@@ -30,6 +30,15 @@ class PostController extends Controller
     //El objeto $request encapsula estos datos y facilita su acceso en el controlador.
     public function store(Request $request)
     {
+
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ],[
+            'title.required' => 'Este campo es requerido', // Personaliza el mensaje para 'title'
+            'body.required' => 'Se necesita mínimo un párrafo',   // Personaliza el mensaje para 'body'
+        ]);
+
         // Obtiene el usuario autenticado a través del objeto $request
         $post = $request->user()->posts()->create([
             // Asigna el valor del campo 'title' y lo almacena en la variable $title
@@ -53,6 +62,16 @@ class PostController extends Controller
     //Este método maneja la solicitud para actualizar una publicación.
     public function update(Request $request, Post $post)
     {
+
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ],[
+            'title.required' => 'Este campo es requerido', // Personaliza el mensaje para 'title'
+            'body.required' => 'Se necesita mínimo un párrafo',   // Personaliza el mensaje para 'body'
+        ]);
+
+
         /*Recibe dos parámetros: $request, que es un objeto de la clase Request que contiene los datos del formulario enviado, 
         y $post, que es una instancia del modelo Post que se actualizará.*/
         // Actualiza los atributos de la publicación con los datos del formulario
