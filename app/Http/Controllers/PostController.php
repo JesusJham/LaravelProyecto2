@@ -33,6 +33,7 @@ class PostController extends Controller
 
         $request->validate([
             'title' => 'required',
+            'slug' => 'required|unique:posts,slug',
             'body' => 'required',
         ],[
             'title.required' => 'Este campo es requerido', // Personaliza el mensaje para 'title'
@@ -42,9 +43,9 @@ class PostController extends Controller
         // Obtiene el usuario autenticado a través del objeto $request
         $post = $request->user()->posts()->create([
             // Asigna el valor del campo 'title' y lo almacena en la variable $title
-            'title' => $title = $request->title,
+            'title' => $request->title,
             // Genera un slug a partir del valor del campo 'title' utilizando Str::slug
-            'slug' => Str::slug($title),
+            'slug' => $request->slug,
             // Asigna el valor del campo 'body'
             'body' => $request->body,
         ]);
@@ -65,10 +66,15 @@ class PostController extends Controller
 
         $request->validate([
             'title' => 'required',
+            /*El campo 'slug' es requerido y único en la tabla 'posts'.
+            $post->id excluye el ID del post actual de la validación de unicidad, 
+            permitiendo actualizar la publicación actual sin conflicto.*/
+            'slug' => 'required|unique:posts,slug,' . $post->id,
             'body' => 'required',
         ],[
             'title.required' => 'Este campo es requerido', // Personaliza el mensaje para 'title'
             'body.required' => 'Se necesita mínimo un párrafo',   // Personaliza el mensaje para 'body'
+            'slug.unique' => 'Este slug ya está en uso. Por favor, elige otro.',
         ]);
 
 
@@ -76,8 +82,8 @@ class PostController extends Controller
         y $post, que es una instancia del modelo Post que se actualizará.*/
         // Actualiza los atributos de la publicación con los datos del formulario
         $post->update([
-            'title' => $title = $request->title,
-            'slug' => Str::slug($title),
+            'title' => $request->title,
+            'slug' => $request->slug,
             'body' => $request->body,
         ]);
 
