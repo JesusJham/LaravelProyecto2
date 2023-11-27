@@ -41,4 +41,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //Este método define una relación llamada posts. El nombre de este método determina cómo se accederá a la relación.
+    public function posts(){
+        //Este método establece la relación. En este caso, se está utilizando hasMany, 
+        //lo que indica que un usuario puede tener muchos registros en la tabla 
+        return $this->hasMany(Post::class);
+    }
+
+
+
 }
