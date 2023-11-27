@@ -24,7 +24,7 @@ class PageController extends Controller
         //$posts = Post::latest()->paginate(6); // muestra los ultimos post en paginacion con 6 por p
         
 
-
+            // Retorna la vista 'blog' y pasa las publicaciones como datos
         return view('blog', ['posts' => $posts]);
     }
 

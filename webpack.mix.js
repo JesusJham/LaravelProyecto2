@@ -11,7 +11,13 @@ const mix = require('laravel-mix');
  |
  */
 
+// Compila el archivo app.js ubicado en resources/js/ y lo guarda en public/js/
+// También, utiliza postCss para procesar el archivo app.css ubicado en resources/css/
+// y lo guarda en public/css/, aplicando una serie de procesadores (postcss-import, tailwindcss, autoprefixer).
 mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
-        //
+        require('postcss-import'),
+        require('tailwindcss'),
+        require('autoprefixer'),
     ]);
+
