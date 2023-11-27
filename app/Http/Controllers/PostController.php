@@ -18,6 +18,22 @@ class PostController extends Controller
         ]);
     }
 
+    // Método para mostrar el formulario de creación de una nueva publicación
+    public function create(Post $post)
+    {
+        // Carga la vista 'posts.create' y pasa la variable $post a la vista
+
+        return view('posts.create', compact('post'));
+    }
+
+    // Método para mostrar el formulario de edición de una publicación existente
+    public function edit(Post $post)
+    {
+        return view('posts.edit', compact('post'));
+    }
+
+
+
     public function destroy(Post $post)
     {
         // Elimina la publicación de la base de datos
