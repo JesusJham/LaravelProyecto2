@@ -7,13 +7,19 @@ use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
-    public function home()
+    public function home(Request $request)
     {   
 
+        $search = $request->search;
+    
         //$posts = Post::get();//obtienes todo el Post
-        //$post = Post::first(); //primer elemnto
-        //$post = Post::find(25); // los 25 primerois elementos
-        $posts = Post::latest()->paginate(); // muestra los ultimos post en paginacion con 6 por p
+
+        /*. La consulta busca publicaciones (Post) cuyos títulos contengan la cadena de búsqueda proporcionada.
+        La consulta se ordena por fecha de creación de manera descendente (últimas primero) y se paginan los resultados.*/
+        $posts = Post::where('title', 'LIKE', "%{$search}%")
+            ->with('user')// El siguiente bloque carga la relación 'user' junto con las publicaciones.
+            ->latest()->paginate(); // muestra los ultimos post en paginacion
+        
 
         // Retorna la vista llamada 'home'. // Retorna la vista 'blog' y pasa las publicaciones como datos
         return view('home', ['posts' => $posts]);
