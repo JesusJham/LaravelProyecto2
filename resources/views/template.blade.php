@@ -10,7 +10,7 @@
 
 <body>
 
-    <div class="containerr px-4 mx-auto">
+    <div class="containerr px-12 mx-auto">
         <header class="flex jus tify-between items-center py-4">
             <div class="flex items-center flex-grow gap-4">
                 <a href="{{ route('home') }}">
@@ -44,7 +44,7 @@
 
         @yield('content')
 
-        <p class="py-16">
+        <p cla  ss="py-16">
 			<img src="{{ asset('images/logo.png') }}" class="h-12 mx-auto">
 		</p>
     </div>
