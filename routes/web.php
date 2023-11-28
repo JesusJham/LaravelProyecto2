@@ -17,16 +17,13 @@ Route::controller(PageController::class)->group(function () {
 });
 
 // Define una ruta GET para la URL '/dashboard'
-Route::get('/dashboard', function () {
-    // Devuelve la vista 'dashboard'
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-// Aplica un middleware de autenticación a esta ruta. Esto significa que solo los usuarios autenticados podrán acceder a esta URL. 
-//Si un usuario no está autenticado, será redirigido al proceso de inicio de sesión.
+Route::redirect('dashboard', 'posts')->name('dashboard');
 
 
 // Define rutas de recursos para el controlador PostController, excluyendo la ruta 'show' (mostrar detalles)
-Route::resource('posts', PostController::class)->except('show');
+Route::resource('posts', PostController::class)->middleware(['auth'])->except('show');
+// Aplica un middleware de autenticación a esta ruta. Esto significa que solo los usuarios autenticados podrán acceder a esta URL. 
+//Si un usuario no está autenticado, será redirigido al proceso de inicio de sesión.
 
 
 require __DIR__.'/auth.php';
